@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil des plats{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="container">
+            <h1 class="text-center mb-5">Les plats :</h1>
+            <div class="row mt-5">
+                {% for plat in plats %}
+                <div class="col-lg-6">
+                    <h2 class="col-lg-12 text-center">
+                        {{ plat.nom }}
+                    </h2>
+                    {% if plat.Category.name is defined %}
+                    <small class="col-lg-12 text-center mb-5 font-weight-light font-italic">
+                        {{ plat.Category.name }}
+                    </small>
+                    {% endif %}
+                    <div class="col-lg-12 mb-3 text-justify">
+                        {{ plat.description }}
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <a href="{{ path('plat_show', {'id': plat.id}) }}" class="btn btn-outline-dark" role="button">Voir</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+	        {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light mb-5" style="background-color: #e3f2fd;">
+            <div class="container">
+                <a class="navbar-brand" href="{{ path('plat_index') }}">Le menu de l'UE 235</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        {% if categories is defined %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Catégories des plats
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% for category in categories %}
+                                <a class="dropdown-item" href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a>
+                        {% endfor %}
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('category_index') }}">Catégories de plats</a>
+                        </li>
+                        {% endif %}
+                        {% if plats is defined %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Plats à découvrir
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% for plat in plats %}
+                                <a class="dropdown-item" href="{{ path('plat_show', {'id': plat.id}) }}">{{ plat.nom }}</a>
+                        {% endfor %}
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('plat_index') }}">Plats à découvrir</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('plat_new') }}">Ajouter un plat</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block body %}{% endblock %}
+        <footer class="fixed-bottom mt-5text-center text-lg-start" style="background-color: #e3f2fd;">
+            <div class="text-center p-3">
+                Escudero Martial - CIEL Partie 2 UE 235 
+            </div>
+        </footer>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </body>
+</html>
